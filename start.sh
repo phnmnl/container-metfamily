@@ -12,7 +12,7 @@ docker pull ubuntu
 docker build --rm=true --cpu-shares=1 --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --tag=docker-shiny .
 
 # Run docker
-docker run --publish=3838:3838 --volume=/vol:/vol:rw --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --name=docker-shiny-run -i -t docker-shiny
+docker run --publish=3838:3838 --log-driver=syslog --volume=/vol:/vol:rw --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --name=docker-shiny-run -i -t -d docker-shiny
 
 # Detach/Attach docker
 # detach: CTRL-P + CTRL-Q

@@ -31,7 +31,7 @@ RUN R -e "install.packages(c('shiny','rmarkdown','shinyBS','shinyjs','DT'), repo
 RUN R -e "install.packages(c('squash','FactoMineR','devtools'), repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages(c('rCharts','cba','matrixStats','Matrix','plotrix','tools','htmltools'), repos='https://cran.rstudio.com/')"
 RUN R -e "source('https://bioconductor.org/biocLite.R'); biocLite(); biocLite(c('xcms','mzR','pcaMethods'));"
-RUN R -e "update.packages(repos='https://cran.rstudio.com/')"
+RUN R -e "update.packages(repos='https://cran.rstudio.com/', ask=F)"
 
 # install shiny-server
 RUN cd /usr/src; git clone https://github.com/rstudio/shiny-server.git; cd shiny-server; mkdir tmp; cd tmp; DIR=`pwd`; PATH=$DIR/../bin:$PATH; PYTHON=`which python`; cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON="$PYTHON" ../; make; mkdir ../build; (cd .. && ./bin/npm --python="$PYTHON" rebuild); (cd .. && ./bin/node ./ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python="$PYTHON" rebuild); make install
