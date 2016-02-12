@@ -37,8 +37,9 @@ RUN R -e "update.packages(repos='https://cran.rstudio.com/', ask=F)"
 RUN cd /usr/src; git clone https://github.com/rstudio/shiny-server.git; cd shiny-server; mkdir tmp; cd tmp; DIR=`pwd`; PATH=$DIR/../bin:$PATH; PYTHON=`which python`; cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON="$PYTHON" ../; make; mkdir ../build; (cd .. && ./bin/npm --python="$PYTHON" rebuild); (cd .. && ./bin/node ./ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python="$PYTHON" rebuild); make install
 RUN ln -s /usr/local/shiny-server/bin/shiny-server /usr/bin/shiny-server; useradd -r -m shiny; mkdir -p /var/log/shiny-server; mkdir -p /srv/shiny-server; mkdir -p /var/lib/shiny-server; chown shiny /var/log/shiny-server; mkdir -p /etc/shiny-server; wget https://raw.github.com/rstudio/shiny-server/master/config/upstart/shiny-server.conf -O /etc/init/shiny-server.conf; cp -r /usr/src/shiny-server/samples/* /srv/shiny-server/; wget https://raw.githubusercontent.com/rstudio/shiny-server/master/config/default.config -O /etc/shiny-server/shiny-server.conf
 
-# link files & expose port for shiny server
-VOLUME /vol
+# link internal files & expose port for shiny server
+RUN mkdir -p /vol/R/shiny/srv/shiny-server
+VOLUME /vol/R/shiny/srv/shiny-server
 RUN mv /srv/shiny-server /srv/shiny-server_orig; ln -s /vol/R/shiny/srv/shiny-server /srv/shiny-server
 EXPOSE 3838
 
