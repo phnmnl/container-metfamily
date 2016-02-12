@@ -2,11 +2,7 @@ FROM ubuntu
 
 MAINTAINER Kristian Peters <kpeters@ipb-halle.de>
 
-LABEL Description="Install R shiny-server + relevant bioconductor packages in Docker."
-
-# choose a user and group id (needed if nfs/ldap is configured to only use ids > 1000)
-RUN groupadd -r -g 1234 docker && useradd -r -u 1234 -g docker docker
-USER docker
+LABEL Description="Install R shiny-server + MetFAM + relevant bioconductor packages in Docker."
 
 # add cran R backport
 RUN apt-get -y install apt-transport-https
@@ -26,6 +22,9 @@ RUN apt-get -y install netcdf-bin libnetcdf-dev libdigest-sha-perl
 # install development files needed
 RUN apt-get -y install git python xorg-dev libglu1-mesa-dev freeglut3-dev libgomp1 libxml2-dev gcc g++ libgfortran-4.8-dev libcurl4-gnutls-dev cmake wget ed libssl-dev
 
+# clean up
+RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/{cache,log}/ /tmp/* /var/tmp/*
+
 # install R packages & bioconductor
 RUN R -e "install.packages(c('shiny','rmarkdown','shinyBS','shinyjs','DT'), repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages(c('squash','FactoMineR','devtools'), repos='https://cran.rstudio.com/')"
@@ -41,10 +40,13 @@ RUN ln -s /usr/local/shiny-server/bin/shiny-server /usr/bin/shiny-server; userad
 RUN mkdir -p /vol/R/shiny/srv/shiny-server
 VOLUME /vol/R/shiny/srv/shiny-server
 RUN mv /srv/shiny-server /srv/shiny-server_orig; ln -s /vol/R/shiny/srv/shiny-server /srv/shiny-server
-EXPOSE 3838
 
-# clean up
-RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/{cache,log}/ /tmp/* /var/tmp/*
+# choose a user and group id (needed if nfs/ldap is configured to only use ids > 1000)
+RUN groupadd -r -g 1234 docker && useradd -r -u 1234 -g docker docker
+USER docker
+
+# expose port
+EXPOSE 3838
 
 # Define Entry point script
 ENTRYPOINT ["shiny-server","--pidfile=/var/run/shiny-server.pid"]

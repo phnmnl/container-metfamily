@@ -9,18 +9,18 @@ docker info
 docker pull ubuntu
 
 # Build docker
-docker build --rm=true --cpu-shares=1 --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --tag=docker-shiny .
+docker build --rm=true --cpu-shares=8 --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --tag=docker-metfam .
 
 # Run docker
-docker run --publish=9001:3838 --log-driver=syslog --volume=/vol/R/shiny/srv/shiny-server:/vol/R/shiny/srv/shiny-server:rw --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --name=docker-shiny-run -i -t -d docker-shiny
+docker run --publish=9001:3838 --log-driver=syslog --volume=/vol/R/shiny/srv/shiny-server:/vol/R/shiny/srv/shiny-server:rw --cpu-shares=8 --cpuset-cpus="0-7" --cpuset-mems="0" --memory=8192g --name=docker-metfam-run -i -t -d docker-metfam
 
 # Detach/Attach docker
 # detach: CTRL-P + CTRL-Q
-# docker attach docker-shiny-run
+# docker attach docker-metfam-run
 
 # manually:
-#docker run -P -i -t --name=docker-shiny-run ubuntu /bin/bash
+#docker run -P -i -t --name=docker-metfam-run ubuntu /bin/bash
 #docker ps -a
-#docker commit docker-shiny-run
-#docker rmi docker-shiny-run
+#docker commit docker-metfam-run
+#docker rmi docker-metfam-run
 
