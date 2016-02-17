@@ -59,3 +59,7 @@ docker run --publish=${PORT_PUB}:${PORT_DOCKER} --log-driver=syslog --volume="${
 # Delete container and image
 #docker rm ${NAME}-run
 #docker rmi ${NAME}
+
+# Delete intermediate/untagged images
+#docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
+
