@@ -2,7 +2,7 @@ FROM ubuntu
 
 MAINTAINER Kristian Peters <kpeters@ipb-halle.de>
 
-LABEL Description="Install MetFam + underlying R shiny-server + relevant bioconductor packages in Docker."
+LABEL Description="Install MetFamily + underlying R shiny-server + relevant bioconductor packages in Docker."
 
 
 
@@ -34,7 +34,7 @@ RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/{cache,log}/ /t
 
 # install R packages & bioconductor
 RUN R -e "install.packages(c('shiny','rmarkdown','shinyBS','shinyjs','DT'), repos='https://cran.rstudio.com/')"
-RUN R -e "install.packages(c('squash','FactoMineR','devtools'), repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages(c('squash','FactoMineR','devtools','stringi'), repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages(c('rCharts','cba','matrixStats','Matrix','plotrix','tools','htmltools'), repos='https://cran.rstudio.com/')"
 RUN R -e "source('https://bioconductor.org/biocLite.R'); biocLite(); biocLite(c('xcms','mzR','pcaMethods'));"
 RUN R -e "update.packages(repos='https://cran.rstudio.com/', ask=F)"
@@ -62,6 +62,9 @@ RUN wget https://raw.githubusercontent.com/rstudio/shiny-server/master/config/de
 RUN mkdir -p $VOL
 VOLUME $VOL
 RUN mv /srv/shiny-server /srv/shiny-server_orig; ln -s $VOL /srv/shiny-server
+
+#RUN mv /srv/shiny-server /srv/shiny-server_orig
+#ADD MetFam /srv/shiny-server
 
 # expose port
 EXPOSE 3838

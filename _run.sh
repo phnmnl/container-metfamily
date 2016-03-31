@@ -6,37 +6,26 @@
 
 
 # Name
-NAME="metfam"
+NAME="rstudio-server"
 
 # CPU options
-CPU_SHARES="8"
-CPU_SETS="0-$[$CPU_SHARES-1]"
-CPU_MEMS="0"
-MEM="8g"
+#CPU_SHARES="--cpu-shares=8"
+#CPU_SETS="--cpuset-cpus=0-$[$CPU_SHARES-1]"
+#CPU_MEMS="--cpuset-mems=0"
+#MEM="--memory=24g"
 
 # Ports
-PORT_PUB=9001
-PORT_DOCKER=3838
+PORT_PUB=9000
+PORT_DOCKER=8080
 
 # Volumes
-VOL="/vol/R/shiny/srv/shiny-server/MetFam"
-VOL_PERM="ro"
+VOL="--volume=/home:/home:rw --volume=/mnt:/mnt:ro"
 
 
-
-# Prepare docker
-#docker info
-#docker pull ubuntu
-
-# MetFamily
-cp -Rf /vol/R/shiny/srv/shiny-server/MetFam .
-
-# Build docker
-docker build --rm=true --cpu-shares=$CPU_SHARES --cpuset-cpus=$CPU_SETS --cpuset-mems=$CPU_MEMS --memory=$MEM --tag=$NAME .
 
 # Run docker
-#docker run --publish=${PORT_PUB}:${PORT_DOCKER} --log-driver=syslog --volume="${VOL}:${VOL}:${VOL_PERM}" --cpu-shares=$CPU_SHARES --cpuset-cpus=$CPU_SETS --cpuset-mems=$CPU_MEMS --memory=$MEM --name="${NAME}-run" -i -t -d $NAME
-docker run --publish=${PORT_PUB}:${PORT_DOCKER} --log-driver=syslog --name="${NAME}-run" -i -t -d $NAME
+docker run --publish=${PORT_PUB}:${PORT_DOCKER} --log-driver=syslog $VOL $CPU_SHARES $CPU_SETS $CPU_MEMS $MEM --name="${NAME}-run" -i -t -d $NAME
+
 
 
 # Detach/Attach docker
@@ -62,6 +51,9 @@ docker run --publish=${PORT_PUB}:${PORT_DOCKER} --log-driver=syslog --name="${NA
 # Delete container and image
 #docker rm ${NAME}-run
 #docker rmi ${NAME}
+
+# Delete exited containers
+#docker rm $(docker ps -a -f status=exited | grep -v CONTAINER\ ID | awk '{print $1}')
 
 # Delete intermediate/untagged images
 #docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
