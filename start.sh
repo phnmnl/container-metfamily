@@ -6,7 +6,7 @@
 
 
 # Name
-NAME="metfam"
+NAME="metfamily"
 
 # CPU options
 CPU_SHARES="8"

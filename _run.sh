@@ -19,7 +19,7 @@ PORT_PUB=9001
 PORT_DOCKER=3838
 
 # Volumes
-VOL="--volume=/vol/R/shiny/srv/shiny-server/MetFam:/vol/R/shiny/srv/shiny-server/MetFam:ro"
+#VOL="--volume=/vol/R/shiny/srv/shiny-server/MetFam:/vol/R/shiny/srv/shiny-server/MetFam:ro"
 
 
 
