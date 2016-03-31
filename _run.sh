@@ -6,20 +6,20 @@
 
 
 # Name
-NAME="rstudio-server"
+NAME="metfamily"
 
 # CPU options
 #CPU_SHARES="--cpu-shares=8"
 #CPU_SETS="--cpuset-cpus=0-$[$CPU_SHARES-1]"
 #CPU_MEMS="--cpuset-mems=0"
-#MEM="--memory=24g"
+#MEM="--memory=8g"
 
 # Ports
-PORT_PUB=9000
-PORT_DOCKER=8080
+PORT_PUB=9001
+PORT_DOCKER=3838
 
 # Volumes
-VOL="--volume=/home:/home:rw --volume=/mnt:/mnt:ro"
+VOL="--volume=/vol/R/shiny/srv/shiny-server/MetFam:/vol/R/shiny/srv/shiny-server/MetFam:ro"
 
 
 
