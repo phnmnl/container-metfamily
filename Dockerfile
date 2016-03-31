@@ -42,7 +42,7 @@ RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/{cache,log}/ /t
 ##RUN R -e "update.packages(repos='https://cran.rstudio.com/', ask=F)"
 
 # Install R packages
-RUN for PACK in $PACK_R; do R -e "install.packages(\"$PACK\", repos='https://cran.rstudio.com/', dep=T, ask=F)"; done
+RUN for PACK in $PACK_R; do R -e "install.packages(\"$PACK\", repos='https://cran.rstudio.com/')"; done
 
 # Install Bioconductor packages
 RUN R -e "source('https://bioconductor.org/biocLite.R'); biocLite(\"BiocInstaller\", dep=TRUE, ask=FALSE)"
