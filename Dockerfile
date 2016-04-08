@@ -34,13 +34,6 @@ RUN apt-get -y install git python xorg-dev libglu1-mesa-dev freeglut3-dev libgom
 # Clean up
 RUN apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/{cache,log}/ /tmp/* /var/tmp/*
 
-## Install R packages & bioconductor
-##RUN R -e "install.packages(c('shiny','rmarkdown','shinyBS','shinyjs','DT'), repos='https://cran.rstudio.com/')"
-##RUN R -e "install.packages(c('squash','FactoMineR','devtools','stringi'), repos='https://cran.rstudio.com/')"
-##RUN R -e "install.packages(c('rCharts','cba','matrixStats','Matrix','plotrix','tools','htmltools'), repos='https://cran.rstudio.com/')"
-##RUN R -e "source('https://bioconductor.org/biocLite.R'); biocLite(); biocLite(c('xcms','mzR','pcaMethods'));"
-##RUN R -e "update.packages(repos='https://cran.rstudio.com/', ask=F)"
-
 # Install R packages
 RUN for PACK in $PACK_R; do R -e "install.packages(\"$PACK\", repos='https://cran.rstudio.com/')"; done
 
@@ -70,13 +63,7 @@ RUN wget https://raw.github.com/rstudio/shiny-server/master/config/upstart/shiny
 RUN cp -r /usr/src/shiny-server/samples/* /srv/shiny-server/
 RUN wget https://raw.githubusercontent.com/rstudio/shiny-server/master/config/default.config -O /etc/shiny-server/shiny-server.conf
 
-# Development: using internal sources
-#ENV VOL="/vol/R/shiny/srv/shiny-server/MetFam"
-#RUN mkdir -p $VOL
-#VOLUME $VOL
-#RUN mv /srv/shiny-server /srv/shiny-server_orig; ln -s $VOL /srv/shiny-server
-
-# Stable: using official github repository
+# Using official github repository
 RUN mv /srv/shiny-server /srv/shiny-server_orig
 WORKDIR /srv
 RUN git clone https://github.com/Treutler/MetFamily
