@@ -1,8 +1,8 @@
 FROM ubuntu:trusty
 
-MAINTAINER Kristian Peters <kpeters@ipb-halle.de>
+MAINTAINER PhenoMeNal-H2020 Project <phenomenal-h2020-users@googlegroups.com>
 
-LABEL Description="Install MetFamily + underlying R shiny-server + relevant bioconductor packages in Docker."
+LABEL Description="MetFamily helps identifying metabolites and groups them into metabolite clusters (a.k.a. families)."
 
 
 
