@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Name
-NAME="metfamily"
+NAME="korseby/metfamily"
 
 # CPU options
 #CPU_SHARES="--cpu-shares=8"
@@ -12,5 +12,5 @@ NAME="metfamily"
 
 
 # Build docker
-docker build --rm=true $CPU_SHARES $CPU_SETS $CPU_MEMS $MEM --tag=$NAME .
+docker build --no-cache --rm=true $CPU_SHARES $CPU_SETS $CPU_MEMS $MEM --tag=$NAME .
 
