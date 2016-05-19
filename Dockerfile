@@ -1,5 +1,5 @@
 FROM ubuntu:trusty
-
+# Why don't we start better from r-base in this case?
 MAINTAINER PhenoMeNal-H2020 Project <phenomenal-h2020-users@googlegroups.com>
 
 LABEL Description="MetFamily helps identifying metabolites and groups them into metabolite clusters (a.k.a. families)."
@@ -13,16 +13,13 @@ ENV PACK_GITHUB=""
 
 
 
+# Update & upgrade sources
+RUN apt-get -y update && apt-get -y dist-upgrade && apt-get -y install install apt-transport-https
 # Add cran R backport
-RUN apt-get -y install apt-transport-https
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 RUN echo "deb https://cran.uni-muenster.de/bin/linux/ubuntu trusty/" >> /etc/apt/sources.list
 
-# Update & upgrade sources
-RUN apt-get -y update
-RUN apt-get -y dist-upgrade
-
-# Install r related packages
+# Install r related packages (Pablo: would suggest moving all the installs to the same line, good docker practice)
 RUN apt-get -y install texlive-binaries r-base
 
 # Install libraries needed for bioconductor
