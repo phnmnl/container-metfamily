@@ -55,7 +55,8 @@ RUN git clone https://github.com/rstudio/shiny-server.git
 WORKDIR /usr/src/shiny-server
 RUN mkdir tmp
 WORKDIR /usr/src/shiny-server/tmp
-RUN DIR=`pwd`; PATH=$DIR/../bin:$PATH; PYTHON=`which python`; cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON="$PYTHON" ../; make; mkdir ../build; (cd .. && ./bin/npm --python="$PYTHON" rebuild); (cd .. && ./bin/node ./ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python="$PYTHON" rebuild)
+RUN DIR=`pwd`; PATH=$DIR/../bin:$PATH; PYTHON=`which python`; cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DPYTHON="$PYTHON" ../ && make && mkdir ../build && (cd .. && ./bin/npm --python="$PYTHON" rebuild)
+RUN DIR=`pwd`; PATH=$DIR/../bin:$PATH; PYTHON=`which python`; (cd .. && ./bin/npm --python="$PYTHON" install && ./bin/node ./ext/node/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js --python="$PYTHON" rebuild)
 RUN make install
 RUN ln -s /usr/local/shiny-server/bin/shiny-server /usr/bin/shiny-server
 RUN useradd -r -m shiny
