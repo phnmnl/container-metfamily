@@ -1,0 +1,27 @@
+traefik:
+  image: traefik
+  command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+  ports:
+    - "80:80"
+    - "8080:8080"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /dev/null:/traefik.toml
+
+metfamily1:
+  image: korseby/metfamily
+  labels:
+    - "traefik.backend=metfamily"
+    - "traefik.backend.loadbalancer.method=drr"
+    - "traefik.backend.loadbalancer.sticky=true"
+    - "traefik.frontend.rule=Host:metfamily.docker.localhost"
+
+metfamily2:
+  image: korseby/metfamily
+  labels:
+    - "traefik.backend=metfamily"
+    - "traefik.backend.loadbalancer.method=drr"
+    - "traefik.backend.loadbalancer.sticky=true"
+    - "traefik.frontend.rule=Host:metfamily.docker.localhost"
+
+

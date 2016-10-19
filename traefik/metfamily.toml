@@ -1,0 +1,20 @@
+# metfamily_docker.toml
+[backends]
+  [backends.backend1]
+    [backends.backend1.loadBalancer]
+      method = "wrr"
+      sticky = true
+    [backends.backend1.servers.server2]
+      url = "http://10.38.38.2:3838"
+      weight = 1
+    [backends.backend1.servers.server4]
+      url = "http://10.38.38.4:3838"
+      weight = 1
+
+[frontends]
+  [frontends.frontend1]
+    backend = "backend1"
+    #passHostHeader = true
+    [frontends.frontend1.routes.metfamily1]
+      rule = "Host:wecker.ipb-halle.de"
+
