@@ -35,21 +35,22 @@ For screenshots, you should use the following scheme:
 -->
 
 # MetFamily
-Identification of regulated metabolite families.
 
 ## Short description
 
+Identification of regulated metabolite families.
+
 ## Description
 
-
-## Key features
-
+The MetFamily web application is designed for the identification of regulated metabolite families. This is possible on the basis of metabolite profiles for a set of MS features as well as one MS/MS spectrum for each MS feature. Group-discriminating MS features are identified using a principal component analysis (PCA) of metabolite profiles and metabolite families are identified using a hierarchical cluster analysis (HCA) of MS/MS spectra. Regulated metabolite families are identified by considering group-discriminating MS features from corporate metabolite families.
 
 ## Publications
 
+Treutler H, Tsugawa H, Porzel A, Gorzolka K, Tissier A, Neumann S, Balcke GU (2016): Discovering Regulated Metabolite Families in Untargeted Metabolomics Studies. Anal Chem 88(16):8082-90. doi:10.1021/acs.analchem.6b01569
 
 ## Screenshots
 
+metfamily.png
 
 ## Tool Authors 
 - [Hendrik Treutler](https://github.com/treutler) (IPB-Halle)
@@ -58,7 +59,8 @@ Identification of regulated metabolite families.
 - [Kristian Peters](https://github.com/korseby) (IPB-Halle)
 
 ## Website
-http://msbi.ipb-halle.de/MetFamily/
+* http://msbi.ipb-halle.de/MetFamily/
+* https://github.com/Treutler/MetFamily
 
 ## Installation 
 
