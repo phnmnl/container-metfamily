@@ -50,7 +50,7 @@ Treutler H, Tsugawa H, Porzel A, Gorzolka K, Tissier A, Neumann S, Balcke GU (20
 
 ## Screenshots
 
-metfamily.png
+![screenshot](metfamily.png)
 
 ## Tool Authors 
 - [Hendrik Treutler](https://github.com/treutler) (IPB-Halle)
