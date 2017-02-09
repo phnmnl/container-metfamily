@@ -1,3 +1,9 @@
+LABEL software=MetFamily
+LABEL software.version=1.0.2
+LABEL version=0.1
+
+
+
 FROM ubuntu:trusty
 
 MAINTAINER PhenoMeNal-H2020 Project <phenomenal-h2020-users@googlegroups.com>
