@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-LABEL software=MetFamily
+LABEL software=metfamily
 LABEL software.version=1.0.2
 LABEL version=0.1
 
